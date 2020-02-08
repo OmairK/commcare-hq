@@ -24,7 +24,7 @@ PERMISSION_POST_SMS = "POST_SMS"
 PERMISSION_POST_WISEPILL = "POST_WISEPILL"
 
 
-class SQLApiUser(models.Model):
+class ApiUser(models.Model):
     id = models.CharField(max_length=255, primary_key=True)
     password = models.CharField(max_length=255, null=True)
     permissions = JSONField(default=list, null=True)
@@ -80,7 +80,7 @@ class SQLApiUser(models.Model):
                     return True
             else:
                 return False
-        except SQLApiUser.DoesNotExist:
+        except ApiUser.DoesNotExist:
             return False
 
 
@@ -93,7 +93,7 @@ def _require_api_user(permission=None):
         @require_POST
         @wraps(fn)
         def _outer(request, *args, **kwargs):
-            if SQLApiUser.auth(request.POST.get('username', ''), request.POST.get('password', ''), permission):
+            if ApiUser.auth(request.POST.get('username', ''), request.POST.get('password', ''), permission):
                 response = fn(request, *args, **kwargs)
             else:
                 response = HttpResponse(status=401)
