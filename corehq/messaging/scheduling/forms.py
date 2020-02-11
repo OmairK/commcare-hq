@@ -3553,6 +3553,8 @@ class ConditionalAlertScheduleForm(ScheduleForm):
             schedule = self.save_schedule()
             self.save_rule_action(rule, schedule)
 
+        return schedule
+
 
 class ConditionalAlertForm(Form):
     # Prefix to avoid name collisions; this means all input

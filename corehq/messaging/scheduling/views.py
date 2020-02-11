@@ -868,9 +868,17 @@ class CreateConditionalAlertView(BaseMessagingSectionView, AsyncHandlerMixin):
 
                 rule.name = self.basic_info_form.cleaned_data['name']
                 self.criteria_form.save_criteria(rule)
-                self.schedule_form.save_rule_action_and_schedule(rule)
+                schedule = self.schedule_form.save_rule_action_and_schedule(rule)
 
-            initiate_messaging_rule_run(rule)
+            # Only run rule if the criteria or schedule has changed, not just the name or content
+            must_run_rule = self.criteria_form.has_changed()
+            # compare self.schedule_form.initial_schedule and schedule? ...no, that says teey're equal when they aren't
+            # deepcopy?
+            #import pdb; pdb.set_trace()
+            # TODO: schedule form changed?
+            if must_run_rule:
+                initiate_messaging_rule_run(rule)
+
             return HttpResponseRedirect(reverse(ConditionalAlertListView.urlname, args=[self.domain]))
 
         return self.get(request, *args, **kwargs)
