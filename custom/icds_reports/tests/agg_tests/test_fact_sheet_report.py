@@ -1105,13 +1105,13 @@ class TestFactSheetReportDemographics(TestCase):
             self.get_data()['config']['sections'][0]['rows_config'][6],
             {
                 'average': {
-                    'html': 167,
-                    'sort_key': 167
+                    'html': 196,
+                    'sort_key': 196
                 },
                 'data': [
                     {'html': 'Total lactating women'},
-                    {'html': 160, 'sort_key': 160},
-                    {'html': 167, 'sort_key': 167},
+                    {'html': 189, 'sort_key': 189},
+                    {'html': 196, 'sort_key': 196},
                     {'html': 0}
                 ],
                 'data_source': 'AggAWCMonthlyDataSource',
