@@ -309,7 +309,7 @@ def is_contact_active(domain, contact_doc_type, contact_id):
 
 
 def get_or_create_translation_doc(domain):
-    with StandaloneTranslationDoc.get_locked_obj(domain, 'sms', create=True) as tdoc:
+    with StandaloneTranslationDoc.get_locked_obj(domain, create=True) as tdoc:
         if len(tdoc.langs) == 0:
             tdoc.langs = ['en']
             tdoc.translations['en'] = {}

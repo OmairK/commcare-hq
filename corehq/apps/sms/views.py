@@ -1639,8 +1639,7 @@ def edit_sms_languages(request, domain):
     """
     Accepts same post body as corehq.apps.app_manager.views.edit_app_langs
     """
-    with StandaloneTranslationDoc.get_locked_obj(domain, "sms",
-        create=True) as tdoc:
+    with StandaloneTranslationDoc.get_locked_obj(domain, create=True) as tdoc:
         try:
             from corehq.apps.app_manager.views.utils import validate_langs
             langs, rename = validate_langs(request, tdoc.langs)
@@ -1668,7 +1667,7 @@ def edit_sms_languages(request, domain):
 @domain_admin_required
 @requires_privilege_with_fallback(privileges.OUTBOUND_SMS)
 def download_sms_translations(request, domain):
-    tdoc = StandaloneTranslationDoc.get_obj(domain, "sms")
+    tdoc = StandaloneTranslationDoc.get_obj(domain)
     columns = ["property"] + tdoc.langs + ["default"]
 
     msg_ids = sorted(_MESSAGES.keys())

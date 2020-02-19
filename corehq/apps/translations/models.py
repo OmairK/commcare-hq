@@ -27,11 +27,10 @@ class TranslationMixin(Document):
 
 class StandaloneTranslationDoc(TranslationMixin, CouchDocLockableMixIn):
     """
-    There is either 0 or 1 StandaloneTranslationDoc doc for each (domain, area).
+    There is either 0 or 1 StandaloneTranslationDoc doc for each domain.
     """
     domain = StringProperty()
-    # For example, "sms"
-    area = StringProperty()
+    area = "sms"
     langs = ListProperty()
 
     @property
@@ -42,18 +41,18 @@ class StandaloneTranslationDoc(TranslationMixin, CouchDocLockableMixIn):
             return None
 
     @classmethod
-    def get_obj(cls, domain, area, *args, **kwargs):
+    def get_obj(cls, domain, *args, **kwargs):
         return StandaloneTranslationDoc.view(
             "translations/standalone",
-            key=[domain, area],
+            key=[domain, cls.area],
             include_docs=True
         ).one()
 
     @classmethod
-    def create_obj(cls, domain, area, *args, **kwargs):
+    def create_obj(cls, domain, *args, **kwargs):
         obj = StandaloneTranslationDoc(
             domain=domain,
-            area=area,
+            area=cls.area,
         )
         obj.save()
         return obj

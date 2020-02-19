@@ -418,7 +418,7 @@ class Content(models.Model):
 
     @memoized
     def get_lang_doc(self, domain):
-        return StandaloneTranslationDoc.get_obj(domain, 'sms')
+        return StandaloneTranslationDoc.get_obj(domain)
 
     def get_translation_from_message_dict(self, domain_obj, message_dict, preferred_language_code):
         """

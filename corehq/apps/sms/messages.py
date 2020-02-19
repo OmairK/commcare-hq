@@ -112,9 +112,9 @@ def get_message(msg_id, verified_number=None, context=None, domain=None, languag
     default_msg = _MESSAGES.get(msg_id, "")
 
     if domain:
-        tdoc = StandaloneTranslationDoc.get_obj(domain, "sms")
+        tdoc = StandaloneTranslationDoc.get_obj(domain)
     elif verified_number:
-        tdoc = StandaloneTranslationDoc.get_obj(verified_number.domain, "sms")
+        tdoc = StandaloneTranslationDoc.get_obj(verified_number.domain)
     else:
         tdoc = None
 

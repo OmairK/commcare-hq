@@ -426,7 +426,7 @@ def get_domain_languages(domain):
              .size(0))
     app_languages = query.run().aggregations.languages.keys
 
-    translation_doc = StandaloneTranslationDoc.get_obj(domain, 'sms')
+    translation_doc = StandaloneTranslationDoc.get_obj(domain)
     sms_languages = translation_doc.langs if translation_doc else []
 
     domain_languages = []
