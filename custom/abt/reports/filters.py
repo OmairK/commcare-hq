@@ -93,6 +93,17 @@ class UsernameFilter(VectorLinkLocFilter):
         return options
 
 
+class LocationFilter(VectorLinkLocFilter):
+    slug = 'location_id'
+    label = ugettext_lazy('Location')
+
+    @property
+    def options(self):
+        from custom.abt.reports.late_pmt import get_locations
+        locations = get_locations(self.domain)
+        return [(id_, name) for id_, name in locations.items()]
+
+
 class CountryFilter(VectorLinkLocFilter):
     slug = 'country'
     label = ugettext_lazy('Country')
